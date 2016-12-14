@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Nodejs + ejs + ArangoDB</title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <style>
+            body    { padding-top:50px; }
+        </style>
+        <script>
+        function myExit() {
+            if (confirm("Exit?")){
+            process.exit();
+            }
+        }
+        </script>
+    </head>
+    <body class="container">
+        <header>
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Nodejs + ejs View Engine + ArangoDB</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <!--<a href="/">Home</a>-->
+                            <li class="list-group-item"><a href="/" class="btn btn-info btn-sm btn-block">Home</a>
+                        </li>
+                        <li class="list-group-item" class="active"> 
+                            <!--<a href="/users">Users</a>-->
+                            <a class="btn btn-info btn-sm btn-block" href="/users" >Users</a>
+                        </li>
+                        <li class="list-group-item"><a class="btn btn-info btn-sm btn-block" onclick="myExit()" href="#">Exit</a>
+                        <!-- <li class="list-group-item"> <input id="quickExit" type="button" value="Exit" onclick="myExit();" /> -->
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
