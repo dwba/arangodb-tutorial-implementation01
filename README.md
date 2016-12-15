@@ -14,9 +14,12 @@ version 3.0.10 and the arangojs driver I used was 5.0.3 compared to an earlier v
 used by Ashish..
 
 I created a simpleArangoDB database with a couple of documents in a User collection, 
-as described in the tutorial.
+as described in the tutorial.  It is not included in the repos because of the difficulty of 
+pointing to it from the ArangoDB config files.
 
 All the documents in the single collection are accessible in the arangosh ArangoDB shell 
 but I have been unable to get the simplest list of users to display in the view of the 
 tutorial GUI - probably javascript misunderstanding with promises or use of the cursor!
+
+The code is liberally sprinkled with debug clues (Alerts for HTML and console.logs for js).
 
