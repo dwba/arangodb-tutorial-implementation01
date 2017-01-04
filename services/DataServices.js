@@ -45,7 +45,7 @@ console.log("~~~ DataSvcs Entered ~~~");
 var Database = require('arangojs');
 var aqlQuery = require('arangojs').aql
 //var aqlCursor = require('arangojs').cursor.all
-var host = 'http://127.0.0.1:8529' //process.env.ARANGODB_HOST;
+var host = '127.0.0.1' //process.env.ARANGODB_HOST;
 var port = 8529 //process.env.ARANGODB_PORT;
 var database = process.env.ARANGODB_DB;
 var username = 'root' //process.env.ARANGODB_USERNAME;
@@ -53,43 +53,25 @@ var password = 'bonar' //process.env.ARANGODB_PASSWORD;
 console.log('DataSvcs - let host = ' + host);
 console.log('DataSvcs - let port = ' + port);
 
-var db = new Database({url:'http://&{username}:$password:@${host}:${port}',
-                databaseName: 'nodeAWAdb'
-                });
+var db = new Database({
+  url: `http://${username}:${password}:@${host}:${port}`,
+  databaseName: 'nodeAWAdb'
+});
 
 console.log('DataSvcs - created db instance for nodeAWAdb: ');
 console.log('waiting for valid UI response - Home or Users')
 console.log('...')
 
-module.exports = 
-{ 
- getAllUsers : function() 
-    {
-        console.log('DataSvcs - entered getAllUsers Function');
-        return db.query(aqlQuery`FOR doc IN User RETURN doc`)
-            .then ( console.log("1st promise then - returning cursor all from aqlQuery"),
-                (cursor) => {return cursor}
-                  )
-                /*.then(
-                      function (cursor) 
-                      {
-                        return cursor.all();
-                      }
-                     )*/
-            .catch(
-                    function (error) {
-                        console.log("Error raised in getAllUsers");
-                        console.log(error);  // error object with message
-                    }
-                  )
-            .then( console.log("Final then in db.query - log doc"), 
-                    (doc) => { console.log(doc) }
-                );
-    },
-    addUser : function(user)
-	{
-		return db.database('nodeArangoWebAppDB')
-			      .then(function (mydb) {return mydb.collection('User');})    
-			      .then(function (collection) { return collection.save(user);});
-	}	 
+module.exports = {
+  getAllUsers : function getAllUsers () {
+    return db.query(aqlQuery`FOR doc IN User RETURN doc`)
+      .then(cursor => cursor.all())
+      .catch(error => {
+	console.log(error.message);  // error object with message
+      })
+  },
+  addUser : function addUser (user) {
+    let userCollection = db.collection('User')
+    return userCollection.save(user)
+  }
 }
